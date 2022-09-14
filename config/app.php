@@ -1,6 +1,13 @@
 <?php
 
+use App\Shared\Application\Providers\AppServiceProvider;
+use App\Shared\Application\Providers\AuthServiceProvider;
+use App\Shared\Application\Providers\EventServiceProvider;
+use App\Shared\Application\Providers\RouteServiceProvider;
+use App\Shared\Domain\Repositories\OrderRepositoryInterface;
+use App\Shared\Infrastructure\Repositories\OrderRepository;
 use Illuminate\Support\Facades\Facade;
+use Jenssegers\Mongodb\MongodbServiceProvider;
 
 return [
 
@@ -50,16 +57,13 @@ return [
         /*
          * Application Service Providers
          */
-        \Jenssegers\Mongodb\MongodbServiceProvider::class,
-        \App\Shared\Application\Providers\AppServiceProvider::class,
-        \App\Shared\Application\Providers\AuthServiceProvider::class,
-        // App\Shared\Application\Providers\BroadcastServiceProvider::class,
-        \App\Shared\Application\Providers\EventServiceProvider::class,
-        \App\Shared\Application\Providers\RouteServiceProvider::class,
+        MongodbServiceProvider::class,
+        AppServiceProvider::class,
+        AuthServiceProvider::class,
+        EventServiceProvider::class,
+        RouteServiceProvider::class,
 
     ],
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-    ])->toArray(),
+    'aliases' => Facade::defaultAliases()->merge([])->toArray(),
 ];

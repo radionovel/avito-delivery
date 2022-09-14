@@ -1,5 +1,8 @@
 <?php
+declare(strict_types=1);
 
+use App\Buyer\Application\Controllers\DeliveryController;
+use App\Buyer\Application\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group(['prefix' => 'buyer'], function () {
+    Route::post('delivery/calculate', [DeliveryController::class, 'calculate']);
+    Route::post('orders', [OrderController::class, 'create']);
+});
+
+
+Route::get('/', function (Request $request) {
+    echo app()->version();
 });
